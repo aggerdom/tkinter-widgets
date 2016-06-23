@@ -1,5 +1,30 @@
 import tkinter as tk
 
+def get_clipboard_contents():
+    """Helper function to get the current contents of the clipboard as a string """
+    root = tk.Tk()
+    root.withdraw()
+    cliptext = root.clipboard_get()
+    root.destroy()
+    return cliptext
+
+
+def clip_filter():
+    """
+    Generator that will yield the contents of the clipboard
+    only if the contents of the clipboard have changed since next
+    was previously called from the generator.
+    """
+    old_contents = get_clipboard_contents()
+    yield old_contents
+    while True:
+        new_contents = get_clipboard_contents()
+        if new_contents != old_contents:
+            old_contents = new_contents
+            yield old_contents
+        else:
+            yield None
+
 # ============== Functions to get information about widgets
 
 def get_window_of_widget(widget):
