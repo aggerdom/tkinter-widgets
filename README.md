@@ -25,6 +25,9 @@ Collection of tkinter widgets and helper functions for things such as setting a 
 - [Colors with names (tcl docs)](http://wiki.tcl.tk/16166)
 
 
+### Misc
+
+[Structuring Tkinter App](http://stackoverflow.com/questions/17466561/best-way-to-structure-a-tkinter-application)
 
 Todo:
 

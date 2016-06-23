@@ -106,3 +106,15 @@ class TTKAlphaSlider(ttk.Scale):
             raise ValueError("Alpha value for window must either be float (0 < v < 1) or an integer percentage")
         self.containing_window.wm_attributes('-alpha',new_alpha)
         self._alpha = value
+
+# TODO
+class UrlLabel(tk.Label):
+    """Label that opens a url when clicked"""
+    def __init__(self, master, url, text=None,**kwargs):
+        raise NotImplementedError
+        if text=None:
+            kwargs['text'] = url
+        tk.Label.__init__(self,master,**kwargs)
+        self.url = url
+        self.color = 'blue'
+        command=lambda:webbrowser.open(url)
