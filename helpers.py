@@ -1,5 +1,7 @@
 import tkinter as tk
 
+
+
 def get_clipboard_contents():
     """Helper function to get the current contents of the clipboard as a string """
     root = tk.Tk()
@@ -42,6 +44,29 @@ def get_window_of_widget(widget):
     """Find the window that contains a widget"""
     containing_window = widget.winfo_toplevel()
     return containing_window
+
+def get_window_stack(window):
+    """Takes a root node, and returns a list of windows
+    from bottom of the window stack to the top of the window stack.
+
+    C.F. http://www.tkdocs.com/tutorial/windows.html
+    """
+    root = window.nametowidget('.')
+    stackorder = root.tk.eval('wm stackorder '+str(root)).split()
+    stackorder = [root.nametowidget(w) for w in stackorder]
+    return stackorder
+
+def window_is_above(w1,w2):
+    """
+    Returns whether window w1 is above window w2 in the window stackorder.
+    Credit: c.f. http://www.tkdocs.com/tutorial/windows.html
+    """
+    root = w1.nametowidget('.') # find the root window to get full stackorder
+    return (root.tk.eval('wm stackorder '+str(w1)+' isabove '+str(w2))) == '1'
+
+def destroy_root(widget):
+    widget.nametowidget('.').destroy()
+
 
 # ============== Functions to control window properties
 

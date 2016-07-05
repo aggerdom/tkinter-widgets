@@ -1,26 +1,5 @@
 import tkinter as tk
-
-# Todo: Validation function to determine that a window is root
-def is_root(root):
-    return True
-
-def get_window_stack(root):
-    """Takes a root node, and returns a list of windows
-    from bottom of the window stack to the top of the window stack.
-
-    C.F. http://www.tkdocs.com/tutorial/windows.html
-    """
-    stackorder = root.tk.eval('wm stackorder '+str(root)).split()
-    stackorder = [root.nametowidget(w) for w in stackorder]
-    return stackorder
-
-def window_is_above(w1,w2):
-    """
-    Returns whether window w1 is above window w2 in the window stackorder.
-    Credit: c.f. http://www.tkdocs.com/tutorial/windows.html
-    """
-    root = w1.nametowidget('.') # find the root window to get full stackorder
-    return (root.tk.eval('wm stackorder '+str(w1)+' isabove '+str(w2))) == '1'
+from helpers import get_window_stack, get_window_of_widget, destroy_root
 
 class InspectorPopup(tk.Toplevel):
     def __init__(self,master):
