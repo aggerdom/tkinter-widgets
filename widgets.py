@@ -118,3 +118,5 @@ class UrlLabel(tk.Label):
         self.url = url
         self.color = 'blue'
         command=lambda:webbrowser.open(url)
+
+

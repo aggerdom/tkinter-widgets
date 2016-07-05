@@ -2,6 +2,19 @@
 
 Collection of tkinter widgets and helper functions for things such as setting a window to always on top
 
+# Widgets
+
+- PinButton
+    - Button to pin the window containing the widget to be always on top
+- TTKPinButton
+    - ttk version of PinButton, looks slightly nicer
+
+- AlphaSlider(tk.Scale):
+    - Slider to control the transparency of the containing window.
+        > alphacontrol = AlphaSlider(root,from_=20,to=100)
+
+
+
 # Useful resources for tkinter development
 
 ## General Tkinter
@@ -31,8 +44,13 @@ Collection of tkinter widgets and helper functions for things such as setting a 
 
 Todo:
 
+- Bitmap Pin Image for PinButton
+
 # Mixins for development
-- Widget Explorer (Tool window that displays information about the widget the mouse is over)
+- Widget Explorer
+    - Description: Tool window that displays information about the widget the mouse is over
+    - Needs:
+        - Way of getting a handle for the window the cursor is over (preferably not using focus follows mouse)
 - Helpers to embed widets in canvas
 - Stuff for treeview
 - Devhelp toplevel with resources and docs from around the net

@@ -25,6 +25,17 @@ def clip_filter():
         else:
             yield None
 
+# TODO: Add multiscreen support
+# use
+def get_screensize():
+    """Return the size of the window
+    Returns: (width, height) tuple"""
+    root=tk.Tk()
+    root.withdraw()
+    width = root.winfo_screenwidth()
+    height = root.winfo_screenheight()
+    return (width,height)
+
 # ============== Functions to get information about widgets
 
 def get_window_of_widget(widget):
