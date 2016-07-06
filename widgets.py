@@ -34,6 +34,38 @@ class PinButton(tk.Button):
         else:
             tkwindow.wm_attributes('-topmost', 1)
 
+class PinLabel(tk.Label):
+    """Label to pin the window containing the widget to
+    be always on top.
+
+    Usage:
+        >>> root = tk.Tk()
+        >>> pinlabel = PinLabel(root)
+        >>> pinlabel.pack()
+    """
+
+    def __init__(self, master, *args, img='icons/PinIcon.png', **kwargs):
+        tk.Label.__init__(self, master, *args, **kwargs)
+        self.master = master
+        self.containing_window = self.winfo_toplevel()
+        self.img = make_tk_image(img)
+        self.config(image=self.img)
+        self.bind('<Button-1>', lambda e: self.toggle_always_on_top())
+        self.style()
+
+    def style(self):
+        cur_relief = self.config('relief')[-1]
+        self.bind("<Enter>",lambda e: self.config(relief='raised'))
+        self.bind('<Leave>',lambda e: self.config(relief=cur_relief))
+
+
+    def toggle_always_on_top(self):
+        is_on = self.containing_window.wm_attributes('-topmost')
+        if is_on:
+            self.containing_window.wm_attributes('-topmost', 0)
+        else:
+            self.containing_window.wm_attributes('-topmost', 1)
+
 
 class AlphaSlider(tk.Scale):
     """

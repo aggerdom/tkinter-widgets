@@ -1,4 +1,16 @@
 import tkinter as tk
+from PIL import ImageTk, Image
+
+def make_tk_image(imagepath):
+    """
+    Opens and reads in an image to display in tk widgets.
+    Example:
+        >>> root = tk.Tk()
+        >>> img=make_tk_image(imagepath)
+        >>> label=tk.Label(root,image=img)
+        >>> label.pack()
+    """
+    return ImageTk.PhotoImage(Image.open(imagepath))
 
 def get_root(widget):
     """Takes any tkinter widget and returns the root"""
