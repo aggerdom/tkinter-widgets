@@ -1,5 +1,9 @@
 import tkinter as tk
-from helpers import destroy_root,get_screensize
+from widgets import *
+from helpers import (adjust_alpha,destroy_root,
+                     get_window_of_widget,make_always_on_top,
+                     make_not_always_on_top, get_root,
+                     get_screensize)
 import pyautogui
 
 
@@ -29,6 +33,14 @@ class TransCanv(tk.Canvas):
         self.trans_color = trans_color
         self.make_canvas_transparent()
         self.bind('<Button-1>', self.draw_rect)
+        self.bind('<Button-3>', self.click_through)
+        self.bind("<space>",lambda e:pyautogui.click(duration=2))
+        self.bind('<Enter>',lambda e:print('Entering'))
+        self.bind('<Enter>',lambda e:self.update_idletasks())
+        self.bind('<Leave>',lambda e:print('leaving'))
+        self.bind('<Button-1>', lambda e: print('b1'), add='+')
+        self.bind('<Button-3>', lambda e: print('b3'), add='+')
+        # self.bind('<Button-3>', lambda e: self.update_idletasks, add='+')
 
     def make_canvas_transparent(self):
         self['bg'] = self.trans_color
@@ -41,21 +53,29 @@ class TransCanv(tk.Canvas):
     def draw_transparent_pixel(self, event, *args, **kwargs):
         x = event.x
         y = event.y
-        self.create_rectangle(x, y, x + 100, y + 100, fill=self.trans_color)
+        self.create_rectangle(x, y, x + 100, y + 100,
+                              fill=self.trans_color)
 
+    def click_through(self,event):
+        win = get_window_of_widget(self)
+        win.state("withdrawn")
+        get_root(self).after_idle(lambda: win.state('normal'))
+        try:
+            pyautogui.click(clicks=2)
+            pyautogui.typewrite("e")
+            print('clicked through')
+        except PermissionError:
+            print('click through failed')
 
 def test():
     root = tk.Tk()
     root.withdraw()
+    kill_button = KillButton(root)
     drawwin = TranparentBase(root)
     drawcanv = TransCanv(drawwin, bg="green")
     drawcanv.pack(expand=True,fill='both')
     drawcanv.create_rectangle(3, 3, 3, 3)
     root.mainloop()
-
-
-test()
-
 
 # Todo: Adapt this to use a canvas with the transparency color, and add drawing methods
 def example_of_transparent_window():
@@ -73,3 +93,13 @@ def example_of_transparent_window():
     root.wm_attributes("-transparentcolor", "white")
     label.pack()
     root.mainloop()
+
+
+if __name__ == '__main__':
+    # canv = tk.Canvas()
+    # canv.bind("<Button-1>",lambda e:print("Button 1"))
+    # canv.bind('<Button-3>',lambda e:print("Button 3"))
+    # canv['bg']='yellow'
+    # canv.pack()
+    # canv.mainloop()
+    test()

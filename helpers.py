@@ -1,5 +1,14 @@
 import tkinter as tk
 
+def get_root(widget):
+    """Takes any tkinter widget and returns the root"""
+    return widget.nametowidget('.')
+
+def true_terminate(widget):
+    """Exits tkinter and then exits python application"""
+    widget.nametowidget('.').destroy()
+    from sys import exit
+    exit()
 
 
 def get_clipboard_contents():

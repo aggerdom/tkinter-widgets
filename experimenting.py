@@ -56,7 +56,14 @@ def example_of_transparent_window():
     label.pack()
     root.mainloop()
 
+# How to use virtual events
+def virtual_events():
+    root = tk.Tk()
+    root.bind("<<foo>>",print('foo'))
+    root.mainloop()
+
+
 if __name__ == '__main__':
     # q6()
-    example_of_transparent_window()
-    pass
+    # example_of_transparent_window()
+    virtual_events()
