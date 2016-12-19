@@ -114,8 +114,8 @@ def get_bound_functions(current_callback: str):
           "id(<CallWrapper Instance>)"  + function_name
 
     Luckily however on cpython implementations, the id is it's memory address.
-    So we can take the Tcl code used by the command, and then use its memory address to get the CallWrapper
-    and return its function handle.
+    So we can take the Tcl code used by the command, and then use its memory 
+    address to get the CallWrapper and return its function handle.
 
     ======== Examples of commands defined in tkinter.
 
