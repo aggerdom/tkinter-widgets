@@ -1,9 +1,11 @@
-from widgets import *
-from helpers import (adjust_alpha,destroy_root,
+import pyautogui
+
+from tkinterwidgets.widgets import *
+from tkinterwidgets.helpers import (adjust_alpha,destroy_root,
                      get_window_of_widget,make_always_on_top,
                      make_not_always_on_top, get_root,
                      get_screensize)
-import pyautogui
+
 
 
 

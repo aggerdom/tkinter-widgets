@@ -4,7 +4,8 @@ from collections import defaultdict
 import re
 import ctypes
 
-from helpers import get_window_stack, get_window_of_widget, destroy_root
+from tkinterwidgets.helpers import (get_window_stack, get_window_of_widget, 
+    destroy_root)
 
 
 

@@ -1,11 +1,12 @@
 import tkinter as tk
-from widgets import *
-from helpers import (adjust_alpha,destroy_root,
-                     get_window_of_widget,make_always_on_top,
-                     make_not_always_on_top, get_root,
-                     get_screensize)
+
 import pyautogui
 
+from tkinterwidgets.widgets import *
+from tkinterwidgets.helpers import (adjust_alpha, destroy_root,
+                     get_window_of_widget, make_always_on_top,
+                     make_not_always_on_top, get_root,
+                     get_screensize)
 
 class TranparentBase(tk.Toplevel):
     def __init__(self, master, *args, trans_color="#2b4404", **kwargs):
@@ -22,9 +23,9 @@ class TranparentBase(tk.Toplevel):
         self.closebutton = tk.Button(self, text="X", bg=bg, command=lambda: destroy_root(self))
         self.closebutton.pack(side='right')
 
-    def make_fullscreen(self,actually_fullscreen=False):
-        w,h = get_screensize()
-        self.geometry('%dx%d-0-30'%(w,h))
+    def make_fullscreen(self, actually_fullscreen=False):
+        w, h = get_screensize()
+        self.geometry('%dx%d-0-30' % (w, h))
 
 
 class TransCanv(tk.Canvas):
@@ -34,10 +35,10 @@ class TransCanv(tk.Canvas):
         self.make_canvas_transparent()
         self.bind('<Button-1>', self.draw_rect)
         self.bind('<Button-3>', self.click_through)
-        self.bind("<space>",lambda e:pyautogui.click(duration=2))
-        self.bind('<Enter>',lambda e:print('Entering'))
-        self.bind('<Enter>',lambda e:self.update_idletasks())
-        self.bind('<Leave>',lambda e:print('leaving'))
+        self.bind("<space>", lambda e: pyautogui.click(duration=2))
+        self.bind('<Enter>', lambda e: print('Entering'))
+        self.bind('<Enter>', lambda e: self.update_idletasks())
+        self.bind('<Leave>', lambda e: print('leaving'))
         self.bind('<Button-1>', lambda e: print('b1'), add='+')
         self.bind('<Button-3>', lambda e: print('b3'), add='+')
         # self.bind('<Button-3>', lambda e: self.update_idletasks, add='+')
@@ -56,7 +57,7 @@ class TransCanv(tk.Canvas):
         self.create_rectangle(x, y, x + 100, y + 100,
                               fill=self.trans_color)
 
-    def click_through(self,event):
+    def click_through(self, event):
         win = get_window_of_widget(self)
         win.state("withdrawn")
         get_root(self).after_idle(lambda: win.state('normal'))
@@ -67,17 +68,20 @@ class TransCanv(tk.Canvas):
         except PermissionError:
             print('click through failed')
 
+
 def test():
     root = tk.Tk()
     root.withdraw()
     kill_button = KillButton(root)
     drawwin = TranparentBase(root)
     drawcanv = TransCanv(drawwin, bg="green")
-    drawcanv.pack(expand=True,fill='both')
+    drawcanv.pack(expand=True, fill='both')
     drawcanv.create_rectangle(3, 3, 3, 3)
     root.mainloop()
 
 # Todo: Adapt this to use a canvas with the transparency color, and add drawing methods
+
+
 def example_of_transparent_window():
     root = tk.Tk()
     root.config(bg='white')

@@ -1,5 +1,4 @@
 from sys import version_info
-from helpers import *
 
 if version_info.major == 2:
     import Tkinter as tk
@@ -14,6 +13,8 @@ elif version_info.major >= 3:
     # from tkinter import colorchooser
     # from tkinter import commondialog
     # from tkinter import font
+
+from tkinterwidgets.helpers import *
 
 
 class PinButton(tk.Button):
