@@ -1,5 +1,22 @@
 import tkinter as tk
+from tkinter import ttk
+from collections import defaultdict
+import re
+import ctypes
+
 from helpers import get_window_stack, get_window_of_widget, destroy_root
+
+
+
+def _traverse(widget):
+    """ Used for helping to create TreeView of widgets in a program.
+    Returns an iterator of (parentwidget, childwidget) of any widgets
+    that have the provided widget as an ancestor.
+    """
+    for child in widget.children.values():
+        yield (widget, child)
+        yield from _traverse(child)
+
 
 class ScrollFrame(tk.Frame):
     def __init__(self, master, text=None, scrollbarflag="y"):
@@ -29,7 +46,6 @@ class ScrollFrame(tk.Frame):
             self.yscrollbar.config(command=self.yview)
             configdict.update(dict(yscrollcommand=self.yscrollbar.set))
         self.config(**configdict)
-
 
 def get_info_from_widget(w):
     info = dict()
